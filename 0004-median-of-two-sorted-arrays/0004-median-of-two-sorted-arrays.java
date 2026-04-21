@@ -1,15 +1,15 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         
-        ArrayDeque<Integer> left = new ArrayDeque<>();
-        ArrayDeque<Integer> right = new ArrayDeque<>();
         int nums1Idx = 0;
         int nums2Idx = 0;
+        int numsLen = nums1.length + nums2.length;
         int numIdx = 0;
-        int[] nums = new int[nums1.length + nums2.length];
+        int current = 0, prev = 0;
 
-        while(numIdx < nums.length){
+        while(numIdx <= numsLen/2){
             int num1,num2;
+            prev = current;
             if(nums1Idx < nums1.length){
                 num1 = nums1[nums1Idx];
             }else{
@@ -23,23 +23,17 @@ class Solution {
             
 
             if(num1 < num2){
-                nums[numIdx] = num1;
+                current = num1;
                 nums1Idx++;
-            }else if(num1 > num2){
-                nums[numIdx] = num2;
-                nums2Idx++;
             }else{
-                nums[numIdx] = num1;
-                numIdx++;
-                nums1Idx++;
-                nums[numIdx] = num2;
+                current = num2;
                 nums2Idx++;
             }
             numIdx++;
         }
 
-        if(nums.length%2 == 1)
-            return nums[nums.length/2];
-        return (float)(nums[nums.length/2] + nums[nums.length/2 - 1])/2;
+        if(numsLen%2 == 1)
+            return current;
+        return (float)(current + prev)/2;
     }
 }
