@@ -6,17 +6,15 @@ class Solution {
         for(String query : queries){
             for(String word : dictionary){
                 int count = 0;
-                boolean status = true;
                 for(int index = 0; index < length; index++){
                     if(query.charAt(index) != word.charAt(index)){
                         count++;
                     }
                     if(count > 2){
-                        status = false;
                         break;
                     }
                 }
-                if(status){
+                if(count <= 2){
                     answer.add(query);
                     break;
                 }
